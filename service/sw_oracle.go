@@ -71,7 +71,7 @@ func oracle(c *gin.Context) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Printf("run time panic: %v", err)
-			c.String(200, "error, please retry or contact to administrator.")
+			c.JSON(200, "error, please retry or contact to administrator.")
 		}
 	}()
 	filename := c.DefaultQuery("filename", "/hbec/configs/hbec-app.properties")
@@ -88,17 +88,17 @@ func oracle(c *gin.Context) {
 			properties.ErrorHandler = properties.PanicHandler
 			property := properties.MustLoadFile(filename, properties.UTF8)
 			msg := switchover(to, filename, property)
-			c.String(200, msg)
+			c.JSON(200, msg)
 		} else {
 			// running in process, denied
-			c.String(200, "switch in process, wait a moment and retry please.")
+			c.JSON(200, "switch in process, wait a moment and retry please.")
 		}
 	} else {
 		var envstr string
 		for key := range env {
 			envstr += ("[" + key + "]")
 		}
-		c.String(200, "param [to] is required, must be "+envstr+".")
+		c.JSON(200, "param [to] is required, must be "+envstr+".")
 	}
 }
 
@@ -106,11 +106,11 @@ func status(c *gin.Context) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Printf("panic in running /switchover/status time: %v", err)
-			c.String(200, "error, please retry or contact to administrator.")
+			c.JSON(200, "error, please retry or contact to administrator.")
 		}
 	}()
 	if result, err := execCmd("/bin/bash", "-c", "service trade-searcher status"); err != nil {
-		c.String(200, "check status faild. "+err.Error())
+		c.JSON(200, "check status faild. "+err.Error())
 	} else {
 		filename := c.DefaultQuery("filename", "/hbec/configs/hbec-app.properties")
 		properties.ErrorHandler = properties.PanicHandler
