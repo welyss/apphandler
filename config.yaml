@@ -1,0 +1,11 @@
+envs:
+-  name: shanghai
+   host: jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 10.100.0.1)(PORT = 1521)) ) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = xxxx) (INSTANCE_NAME = yyyy) ) )
+   port: 1521
+   user: uuuu
+   pass: pppp
+-  name: beijing
+   host: jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 10.100.0.2)(PORT = 1521)) ) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = zzzz) ) )
+   port: 1521
+   user: uuuu
+   pass: pppp
